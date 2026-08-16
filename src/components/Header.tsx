@@ -44,11 +44,6 @@ export const Header: React.FC<HeaderProps> = ({ currentStep, onReset }) => {
               <span className="sm:hidden">리셋</span>
             </button>
           )}
-
-          <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 bg-slate-50 border border-slate-200/60 px-3 py-1.5 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Gemini AI 추천 엔진 연동 준비 완료</span>
-          </div>
         </div>
       </div>
     </header>
