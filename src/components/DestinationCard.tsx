@@ -3,15 +3,15 @@
 import React from 'react';
 import {
   MapPin,
-  Calendar,
   Wallet,
   Sparkles,
   ArrowRight,
   Clock,
-  CheckCircle2,
-  Award
+  Award,
+  Heart
 } from 'lucide-react';
 import { RecommendationScore } from '@/types/travel';
+import { useBookmarks } from '@/context/BookmarkContext';
 
 interface DestinationCardProps {
   scoreItem: RecommendationScore;
@@ -26,6 +26,8 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({
 }) => {
   const { destination: dest, matchPercentage, tailoredReason } = scoreItem;
   const isTopMatch = rank === 1;
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const isFav = isBookmarked(dest.id);
 
   return (
     <div
@@ -54,12 +56,32 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/20 to-transparent" />
 
-        {/* Top Right Match Rate Pill */}
-        <div className="absolute top-4 right-4 z-10">
+        {/* Top Right Match Rate Pill & Bookmark Button */}
+        <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
           <div className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-slate-900 text-xs font-black shadow-md flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
             <span>{matchPercentage}% 매칭</span>
           </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleBookmark(dest.id);
+            }}
+            aria-label={isFav ? `${dest.name} 찜 해제` : `${dest.name} 찜하기`}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer ${
+              isFav
+                ? 'bg-rose-500 text-white shadow-rose-500/30 scale-105'
+                : 'bg-white/90 backdrop-blur-md text-slate-600 hover:text-rose-500 hover:bg-white hover:scale-105'
+            }`}
+          >
+            <Heart
+              className={`w-4 h-4 transition-transform duration-200 ${
+                isFav ? 'fill-current text-white animate-heart-pop' : ''
+              }`}
+            />
+          </button>
         </div>
 
         {/* Bottom Destination Name & Country in Image */}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Sparkles, Compass, MapPin, Search } from 'lucide-react';
+import { Sparkles, Compass } from 'lucide-react';
 import { TravelSurveyInput } from '@/types/travel';
 
 interface LoadingAnalysisProps {

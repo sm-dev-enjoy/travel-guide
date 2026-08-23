@@ -51,3 +51,21 @@ export interface RecommendationScore {
   tailoredReason: string;
   matchHighlights: string[];
 }
+
+export interface BookmarkContextType {
+  bookmarks: string[];
+  bookmarkedDestinations: Destination[];
+  isBookmarked: (id: string) => boolean;
+  toggleBookmark: (id: string) => void;
+  addBookmark: (id: string) => void;
+  removeBookmark: (id: string) => void;
+  clearBookmarks: () => void;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: (open: boolean) => void;
+  openDrawer: () => void;
+  closeDrawer: () => void;
+  isHydrated: boolean;
+  selectedDestination: Destination | null;
+  setSelectedDestination: (dest: Destination | null) => void;
+}
+

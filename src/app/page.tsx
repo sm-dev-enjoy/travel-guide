@@ -6,6 +6,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { TravelSurvey } from '@/components/TravelSurvey';
 import { LoadingAnalysis } from '@/components/LoadingAnalysis';
 import { RecommendationResults } from '@/components/RecommendationResults';
+import { BookmarkDrawer } from '@/components/BookmarkDrawer';
 import { Footer } from '@/components/Footer';
 import { RecommendationScore, TravelSurveyInput } from '@/types/travel';
 import { calculateRecommendations } from '@/utils/recommendationEngine';
@@ -82,6 +83,9 @@ export default function Home() {
           />
         )}
       </main>
+
+      {/* Bookmark Wishlist Drawer */}
+      <BookmarkDrawer onExplore={handleStart} />
 
       {/* Footer */}
       <Footer />

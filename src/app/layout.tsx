@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { BookmarkProvider } from '@/context/BookmarkContext';
 
 export const metadata: Metadata = {
   title: '트립파인더 (TripFinder) - AI 맞춤 여행지 추천 서비스',
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full scroll-smooth">
       <body className="min-h-full flex flex-col antialiased text-slate-800 bg-slate-50 selection:bg-sky-500 selection:text-white">
-        {children}
+        <BookmarkProvider>
+          {children}
+        </BookmarkProvider>
       </body>
     </html>
   );

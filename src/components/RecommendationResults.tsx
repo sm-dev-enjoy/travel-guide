@@ -9,8 +9,7 @@ import {
   Check,
   Compass,
   ChevronDown,
-  ChevronUp,
-  MapPin
+  ChevronUp
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { RecommendationScore, TravelSurveyInput } from '@/types/travel';

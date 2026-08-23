@@ -1,8 +1,17 @@
 'use client';
 
 import React from 'react';
-import { Sparkles, ArrowRight, MapPin, Calendar, Wallet, Users, Compass, CheckCircle2 } from 'lucide-react';
+import {
+  Sparkles,
+  ArrowRight,
+  Calendar,
+  Wallet,
+  Compass,
+  CheckCircle2,
+  Heart
+} from 'lucide-react';
 import { MOCK_DESTINATIONS } from '@/data/destinations';
+import { useBookmarks } from '@/context/BookmarkContext';
 
 interface HeroSectionProps {
   onStart: () => void;
@@ -27,6 +36,8 @@ const FEATURE_POINTS = [
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onStart }) => {
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+
   return (
     <div className="relative overflow-hidden pt-6 pb-16 sm:py-20 lg:py-24">
       {/* Background Decorative Gradient Blobs */}
@@ -115,56 +126,79 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStart }) => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {MOCK_DESTINATIONS.map((dest) => (
-              <div
-                key={dest.id}
-                onClick={onStart}
-                className="group relative h-52 sm:h-60 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer border border-slate-200/60"
-              >
-                {/* Image */}
-                <img
-                  src={dest.imageUrl}
-                  alt={dest.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+            {MOCK_DESTINATIONS.map((dest) => {
+              const isFav = isBookmarked(dest.id);
+              return (
+                <div
+                  key={dest.id}
+                  onClick={onStart}
+                  className="group relative h-52 sm:h-60 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer border border-slate-200/60"
+                >
+                  {/* Image */}
+                  <img
+                    src={dest.imageUrl}
+                    alt={dest.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-                {/* Badge (if exists) */}
-                {dest.badge && (
-                  <div className="absolute top-3 left-3 z-10">
-                    <span className="text-[10px] font-bold bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">
-                      {dest.badge}
-                    </span>
-                  </div>
-                )}
-
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 text-white">
-                  <span className="text-[11px] font-medium text-sky-300 block mb-0.5 truncate">
-                    {dest.country} · {dest.region}
-                  </span>
-                  <h3 className="font-bold text-base sm:text-lg tracking-tight mb-1 truncate">
-                    {dest.name}
-                  </h3>
-                  <div className="flex flex-wrap gap-1">
-                    {dest.highlightTags.slice(0, 2).map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] text-white/90 bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded-md"
-                      >
-                        {tag}
+                  {/* Badge (if exists) */}
+                  {dest.badge && (
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="text-[10px] font-bold bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">
+                        {dest.badge}
                       </span>
-                    ))}
+                    </div>
+                  )}
+
+                  {/* Bookmark Heart Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleBookmark(dest.id);
+                    }}
+                    aria-label={isFav ? `${dest.name} 찜 해제` : `${dest.name} 찜하기`}
+                    className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer ${
+                      isFav
+                        ? 'bg-rose-500 text-white shadow-rose-500/30 scale-105'
+                        : 'bg-black/40 backdrop-blur-xs text-white/90 hover:text-rose-400 hover:bg-black/60 hover:scale-105'
+                    }`}
+                  >
+                    <Heart
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        isFav ? 'fill-current text-white animate-heart-pop' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 text-white">
+                    <span className="text-[11px] font-medium text-sky-300 block mb-0.5 truncate">
+                      {dest.country} · {dest.region}
+                    </span>
+                    <h3 className="font-bold text-base sm:text-lg tracking-tight mb-1 truncate">
+                      {dest.name}
+                    </h3>
+                    <div className="flex flex-wrap gap-1">
+                      {dest.highlightTags.slice(0, 2).map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[10px] text-white/90 bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
     </div>
   );
 };
-

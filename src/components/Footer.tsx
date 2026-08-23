@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Compass, Sparkles, Heart } from 'lucide-react';
+import { Compass, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (

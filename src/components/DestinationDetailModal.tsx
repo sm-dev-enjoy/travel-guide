@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   X,
   MapPin,
@@ -11,26 +11,71 @@ import {
   Utensils,
   Lightbulb,
   CheckCircle2,
-  Share2,
   Heart
 } from 'lucide-react';
 import { Destination, RecommendationScore } from '@/types/travel';
+import { useBookmarks } from '@/context/BookmarkContext';
 
 interface DestinationDetailModalProps {
-  scoreItem: RecommendationScore | null;
+  scoreItem?: RecommendationScore | null;
+  destination?: Destination | null;
   onClose: () => void;
 }
 
 export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
   scoreItem,
+  destination,
   onClose,
 }) => {
-  if (!scoreItem) return null;
+  const { isBookmarked, toggleBookmark } = useBookmarks();
 
-  const { destination: dest, matchPercentage, tailoredReason, matchHighlights } = scoreItem;
+  const activeDest: Destination | null = scoreItem ? scoreItem.destination : destination || null;
+
+  // Close on Escape key press
+  useEffect(() => {
+    if (!activeDest) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeDest, onClose]);
+
+  // Lock body scroll with original style restoration
+  useEffect(() => {
+    if (!activeDest) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [activeDest]);
+
+  if (!activeDest) return null;
+
+  const dest = activeDest;
+  const matchPercentage = scoreItem ? scoreItem.matchPercentage : 95;
+  const tailoredReason = scoreItem
+    ? scoreItem.tailoredReason
+    : dest.whyRecommendedReasons.general;
+  const matchHighlights = scoreItem
+    ? scoreItem.matchHighlights
+    : [`'${dest.suitableStyles.join(', ')}' 스타일에 잘 부합합니다.`];
+
+  const isFav = isBookmarked(dest.id);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-xs animate-fade-in">
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-xs animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="destination-detail-title"
+    >
       <div
         className="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 my-8 max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -44,13 +89,34 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent" />
 
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          {/* Top Actions: Bookmark & Close button */}
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => toggleBookmark(dest.id)}
+              aria-label={isFav ? `${dest.name} 찜 해제` : `${dest.name} 찜하기`}
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer ${
+                isFav
+                  ? 'bg-rose-500 text-white shadow-rose-500/30 scale-105'
+                  : 'bg-black/50 hover:bg-black/70 text-white hover:text-rose-400'
+              }`}
+            >
+              <Heart
+                className={`w-4.5 h-4.5 transition-transform duration-200 ${
+                  isFav ? 'fill-current text-white animate-heart-pop' : ''
+                }`}
+              />
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="닫기"
+              className="w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
           {/* Destination Header Texts */}
           <div className="absolute bottom-4 left-5 right-5 text-white">
@@ -69,7 +135,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            <h2 id="destination-detail-title" className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               {dest.name}
             </h2>
             <p className="text-xs sm:text-sm text-white/90 mt-1 line-clamp-1">
@@ -212,13 +278,19 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
 
         {/* Modal Footer */}
         <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between gap-3">
-          <div className="flex flex-wrap gap-1">
-            {dest.highlightTags.slice(0, 3).map((tag, idx) => (
-              <span key={idx} className="text-xs text-slate-500 font-medium">
-                {tag}
-              </span>
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={() => toggleBookmark(dest.id)}
+            aria-label={isFav ? `${dest.name} 찜 해제` : `${dest.name} 찜하기`}
+            className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer border ${
+              isFav
+                ? 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 shadow-xs'
+                : 'bg-white border-slate-200/80 text-slate-700 hover:bg-slate-100 hover:text-rose-600'
+            }`}
+          >
+            <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-slate-400'}`} />
+            <span>{isFav ? '찜 완료 (위시리스트)' : '위시리스트 찜하기'}</span>
+          </button>
 
           <button
             onClick={onClose}
