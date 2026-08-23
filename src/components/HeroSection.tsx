@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Sparkles, ArrowRight, MapPin, Calendar, Wallet, Users, Compass, CheckCircle2 } from 'lucide-react';
-import Image from 'next/image';
+import { MOCK_DESTINATIONS } from '@/data/destinations';
 
 interface HeroSectionProps {
   onStart: () => void;
@@ -23,33 +23,6 @@ const FEATURE_POINTS = [
     icon: Calendar,
     title: '핵심 일정 & 코스',
     desc: '일자별 추천 명소 및 필수 맛집 리스트',
-  },
-];
-
-const PREVIEW_CARDS = [
-  {
-    name: '제주도',
-    country: '대한민국',
-    tag: '#힐링 #에메랄드바다',
-    image: 'https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    name: '후쿠오카',
-    country: '일본',
-    tag: '#미식 #온천힐링',
-    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    name: '다낭 & 호이안',
-    country: '베트남',
-    tag: '#가성비휴양 #풀빌라',
-    image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    name: '발리',
-    country: '인도네시아',
-    tag: '#요가 #정글선셋',
-    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
@@ -95,7 +68,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStart }) => {
           <div className="pt-4 flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs sm:text-sm text-slate-500">
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              <span>국내외 10대 명소 분석</span>
+              <span>국내외 {MOCK_DESTINATIONS.length}대 대표 명소 분석</span>
             </div>
             <div className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -135,40 +108,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStart }) => {
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
                 <Compass className="w-5 h-5 text-sky-600" />
-                추천 대기 중인 대표 여행지
+                추천 대기 중인 대표 여행지 ({MOCK_DESTINATIONS.length}곳)
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-0.5">선택한 취향에 맞춰 이런 멋진 곳들이 매칭됩니다</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {PREVIEW_CARDS.map((card, idx) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {MOCK_DESTINATIONS.map((dest) => (
               <div
-                key={idx}
+                key={dest.id}
                 onClick={onStart}
-                className="group relative h-48 sm:h-56 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer border border-slate-200/60"
+                className="group relative h-52 sm:h-60 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 cursor-pointer border border-slate-200/60"
               >
                 {/* Image */}
                 <img
-                  src={card.image}
-                  alt={card.name}
+                  src={dest.imageUrl}
+                  alt={dest.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+
+                {/* Badge (if exists) */}
+                {dest.badge && (
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="text-[10px] font-bold bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full shadow-xs">
+                      {dest.badge}
+                    </span>
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 text-white">
-                  <span className="text-[11px] font-medium text-sky-300 block mb-0.5">
-                    {card.country}
+                  <span className="text-[11px] font-medium text-sky-300 block mb-0.5 truncate">
+                    {dest.country} · {dest.region}
                   </span>
-                  <h3 className="font-bold text-base sm:text-lg tracking-tight mb-1">
-                    {card.name}
+                  <h3 className="font-bold text-base sm:text-lg tracking-tight mb-1 truncate">
+                    {dest.name}
                   </h3>
-                  <span className="text-[11px] text-white/80 inline-block bg-white/20 backdrop-blur-xs px-2 py-0.5 rounded-full">
-                    {card.tag}
-                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {dest.highlightTags.slice(0, 2).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] text-white/90 bg-white/20 backdrop-blur-xs px-1.5 py-0.5 rounded-md"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -178,3 +167,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStart }) => {
     </div>
   );
 };
+
