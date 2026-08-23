@@ -60,45 +60,45 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 animate-fade-in space-y-8">
       {/* Top Banner & Control Bar */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg shadow-slate-200/50 border border-slate-200/80">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg shadow-gray-200/50 border border-gray-200/90">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           {/* Left Title & Selected Badges */}
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200/60">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0cefd3]/15 text-[#008e7d] text-xs font-bold border border-[#0cefd3]/40">
+              <Sparkles className="w-3.5 h-3.5 text-[#00a894]" />
               <span>맞춤 분석 완료</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#222222] tracking-tight">
               고객님께 가장 잘 어울리는 <br className="sm:hidden" />
-              <span className="bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#00bda7] to-[#08c5ad] bg-clip-text text-transparent">
                 추천 여행지 Top 3
               </span>
             </h1>
 
             {/* User Selected Conditions Pills */}
             <div className="flex flex-wrap items-center gap-1.5 pt-1">
-              <span className="text-xs text-slate-600 font-medium mr-1">선택 조건:</span>
+              <span className="text-xs text-[#6c6d6f] font-medium mr-1">선택 조건:</span>
               {input.styles.map((s) => (
                 <span
                   key={s}
-                  className="text-xs bg-sky-50 text-sky-700 font-bold px-2.5 py-1 rounded-lg border border-sky-200/60"
+                  className="text-xs bg-[#0cefd3]/15 text-[#008e7d] font-bold px-2.5 py-1 rounded-lg border border-[#0cefd3]/40"
                 >
                   #{s}
                 </span>
               ))}
               {input.duration && (
-                <span className="text-xs bg-indigo-50 text-indigo-700 font-bold px-2.5 py-1 rounded-lg border border-indigo-200/60">
+                <span className="text-xs bg-[#f3f4f5] text-[#232324] font-bold px-2.5 py-1 rounded-lg border border-gray-200">
                   #{input.duration}
                 </span>
               )}
               {input.budget && (
-                <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-2.5 py-1 rounded-lg border border-emerald-200/60">
+                <span className="text-xs bg-[#f3f4f5] text-[#232324] font-bold px-2.5 py-1 rounded-lg border border-gray-200">
                   #{input.budget}
                 </span>
               )}
               {input.companion && (
-                <span className="text-xs bg-amber-50 text-amber-700 font-bold px-2.5 py-1 rounded-lg border border-amber-200/60">
+                <span className="text-xs bg-[#f3f4f5] text-[#232324] font-bold px-2.5 py-1 rounded-lg border border-gray-200">
                   #{input.companion} 동행
                 </span>
               )}
@@ -109,7 +109,7 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
           <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               onClick={onEditFilters}
-              className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-[#f3f4f5] hover:bg-[#e7e8ea] text-[#232324] font-bold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-transparent"
             >
               <SlidersHorizontal className="w-4 h-4" />
               <span>조건 수정</span>
@@ -117,7 +117,7 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
 
             <button
               onClick={onRestart}
-              className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-[#f3f4f5] hover:bg-[#e7e8ea] text-[#232324] font-bold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-transparent"
             >
               <RotateCcw className="w-4 h-4" />
               <span>다시 추천</span>
@@ -125,12 +125,12 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
 
             <button
               onClick={handleShare}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-semibold text-xs sm:text-sm transition-colors border border-sky-200/70 flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#0cefd3] hover:bg-[#0bdac0] text-[#222222] font-black text-xs sm:text-sm transition-colors border border-transparent flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-600" />
-                  <span className="text-emerald-700">링크 복사됨!</span>
+                  <Check className="w-4 h-4 text-[#222222] stroke-[3]" />
+                  <span>링크 복사됨!</span>
                 </>
               ) : (
                 <>
@@ -161,9 +161,9 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
           <div className="text-center">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200/80 text-slate-700 font-bold text-sm shadow-xs hover:bg-slate-50 hover:shadow-md transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-gray-200 text-[#222222] font-extrabold text-sm shadow-xs hover:bg-[#f3f4f5] hover:shadow-md transition-all cursor-pointer"
             >
-              <Compass className="w-4 h-4 text-sky-600" />
+              <Compass className="w-4 h-4 text-[#00bda7]" />
               <span>
                 {showAll ? '기타 추천 여행지 접기' : `다른 추천 여행지 ${otherDestinations.length}곳 더보기`}
               </span>

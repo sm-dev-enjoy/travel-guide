@@ -223,13 +223,13 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
     <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12 animate-fade-in">
       {/* Step Progress Bar */}
       <div className="mb-8">
-        <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-500 mb-2">
+        <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-[#6c6d6f] mb-2">
           <span>단계 {currentStep} / 4</span>
-          <span className="text-sky-600 font-bold">{Math.round(progressPercent)}% 완성</span>
+          <span className="text-[#008e7d] font-extrabold">{Math.round(progressPercent)}% 완성</span>
         </div>
-        <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+        <div className="w-full bg-[#f3f4f5] h-2 rounded-full overflow-hidden border border-gray-200/50">
           <div
-            className="bg-gradient-to-r from-sky-500 to-indigo-600 h-full rounded-full transition-all duration-300 ease-out"
+            className="bg-[#0cefd3] h-full rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -245,12 +245,12 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
             <button
               key={item.step}
               onClick={() => setCurrentStep(item.step)}
-              className={`py-1 px-2 rounded-lg text-xs font-medium transition-all ${
+              className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 currentStep === item.step
-                  ? 'bg-sky-500 text-white font-bold shadow-xs'
+                  ? 'bg-[#0cefd3] text-[#222222] font-black shadow-xs'
                   : currentStep > item.step
-                  ? 'bg-sky-50 text-sky-700 hover:bg-sky-100'
-                  : 'text-slate-400 hover:text-slate-600'
+                  ? 'bg-[#0cefd3]/15 text-[#008e7d] hover:bg-[#0cefd3]/25'
+                  : 'text-[#6c6d6f] hover:text-[#222222]'
               }`}
             >
               {item.step}. {item.title}
@@ -260,18 +260,18 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
       </div>
 
       {/* Wizard Card Container */}
-      <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-200/60 border border-slate-200/80">
+      <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-lg shadow-gray-200/50 border border-gray-200/90">
         {/* STEP 1: Travel Style */}
         {currentStep === 1 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <span className="text-xs font-bold text-sky-600 tracking-wider uppercase bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">
+              <span className="text-xs font-extrabold text-[#008e7d] tracking-wider uppercase bg-[#0cefd3]/15 px-2.5 py-1 rounded-full border border-[#0cefd3]/40">
                 Step 1 of 4
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#222222] mt-3 mb-1">
                 어떤 스타일의 여행을 선호하시나요?
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-[#6c6d6f]">
                 원하는 여행 스타일을 1개 이상 자유롭게 선택해 주세요. (복수 선택 가능)
               </p>
             </div>
@@ -287,31 +287,31 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
                     onClick={() => toggleStyle(item.value)}
                     className={`flex items-start gap-4 p-4.5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-sky-500 bg-sky-50/70 shadow-sm ring-2 ring-sky-500/20'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
+                        ? 'border-[#0cefd3] bg-[#0cefd3]/10 shadow-xs ring-2 ring-[#0cefd3]/25'
+                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-[#f3f4f5]'
                     }`}
                   >
                     <div
                       className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-sky-500 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-[#0cefd3] text-[#222222]'
+                          : 'bg-[#f3f4f5] text-[#222222]'
                       }`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900 text-base">
+                        <span className="font-extrabold text-[#222222] text-base">
                           {item.label}
                         </span>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center">
-                            <Check className="w-3.5 h-3.5" />
+                          <div className="w-5 h-5 rounded-full bg-[#0cefd3] text-[#222222] flex items-center justify-center">
+                            <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 leading-snug">
+                      <p className="text-xs text-[#6c6d6f] mt-1 leading-snug">
                         {item.description}
                       </p>
                     </div>
@@ -326,13 +326,13 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
         {currentStep === 2 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <span className="text-xs font-bold text-sky-600 tracking-wider uppercase bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">
+              <span className="text-xs font-extrabold text-[#008e7d] tracking-wider uppercase bg-[#0cefd3]/15 px-2.5 py-1 rounded-full border border-[#0cefd3]/40">
                 Step 2 of 4
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#222222] mt-3 mb-1">
                 예상하시는 여행 기간은 얼마인가요?
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-[#6c6d6f]">
                 일정에 맞춰 이동 시간과 핵심 명소 코스를 최적화해 드립니다.
               </p>
             </div>
@@ -347,29 +347,29 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
                     onClick={() => setSelectedDuration(item.value)}
                     className={`flex items-start gap-4 p-5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-sky-500 bg-sky-50/70 shadow-sm ring-2 ring-sky-500/20'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
+                        ? 'border-[#0cefd3] bg-[#0cefd3]/10 shadow-xs ring-2 ring-[#0cefd3]/25'
+                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-[#f3f4f5]'
                     }`}
                   >
                     <div
                       className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-sky-500 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-[#0cefd3] text-[#222222]'
+                          : 'bg-[#f3f4f5] text-[#222222]'
                       }`}
                     >
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900 text-base">
+                        <span className="font-extrabold text-[#222222] text-base">
                           {item.label}
                         </span>
-                        <span className="text-[11px] font-semibold text-sky-600 bg-sky-100 px-2 py-0.5 rounded-full">
+                        <span className="text-[11px] font-bold text-[#008e7d] bg-[#0cefd3]/20 px-2 py-0.5 rounded-full">
                           {item.tag}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 leading-snug">
+                      <p className="text-xs text-[#6c6d6f] mt-1 leading-snug">
                         {item.subtitle}
                       </p>
                     </div>
@@ -384,13 +384,13 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
         {currentStep === 3 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <span className="text-xs font-bold text-sky-600 tracking-wider uppercase bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">
+              <span className="text-xs font-extrabold text-[#008e7d] tracking-wider uppercase bg-[#0cefd3]/15 px-2.5 py-1 rounded-full border border-[#0cefd3]/40">
                 Step 3 of 4
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#222222] mt-3 mb-1">
                 1인당 생각하시는 예산 범위는?
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-[#6c6d6f]">
                 교통비/항공권, 숙박비, 식비 및 액티비티를 종합적으로 고려한 기준입니다.
               </p>
             </div>
@@ -405,29 +405,29 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
                     onClick={() => setSelectedBudget(item.value)}
                     className={`flex items-start gap-4 p-5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-sky-500 bg-sky-50/70 shadow-sm ring-2 ring-sky-500/20'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
+                        ? 'border-[#0cefd3] bg-[#0cefd3]/10 shadow-xs ring-2 ring-[#0cefd3]/25'
+                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-[#f3f4f5]'
                     }`}
                   >
                     <div
                       className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-sky-500 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-[#0cefd3] text-[#222222]'
+                          : 'bg-[#f3f4f5] text-[#222222]'
                       }`}
                     >
                       <Wallet className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900 text-base">
+                        <span className="font-extrabold text-[#222222] text-base">
                           {item.label}
                         </span>
-                        <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/50">
+                        <span className="text-[11px] font-bold text-[#008e7d] bg-[#0cefd3]/20 px-2 py-0.5 rounded-full border border-[#0cefd3]/30">
                           {item.badge}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 leading-snug">
+                      <p className="text-xs text-[#6c6d6f] mt-1 leading-snug">
                         {item.subtitle}
                       </p>
                     </div>
@@ -442,13 +442,13 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
         {currentStep === 4 && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <span className="text-xs font-bold text-sky-600 tracking-wider uppercase bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">
+              <span className="text-xs font-extrabold text-[#008e7d] tracking-wider uppercase bg-[#0cefd3]/15 px-2.5 py-1 rounded-full border border-[#0cefd3]/40">
                 Step 4 of 4
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#222222] mt-3 mb-1">
                 이번 여행은 누구와 함께 떠나시나요?
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-[#6c6d6f]">
                 동행자의 성격과 분위기에 가장 잘 어울리는 맞춤 장소를 추천해 드립니다.
               </p>
             </div>
@@ -464,31 +464,31 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
                     onClick={() => setSelectedCompanion(item.value)}
                     className={`flex items-start gap-4 p-5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-sky-500 bg-sky-50/70 shadow-sm ring-2 ring-sky-500/20'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
+                        ? 'border-[#0cefd3] bg-[#0cefd3]/10 shadow-xs ring-2 ring-[#0cefd3]/25'
+                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-[#f3f4f5]'
                     }`}
                   >
                     <div
                       className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-sky-500 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-[#0cefd3] text-[#222222]'
+                          : 'bg-[#f3f4f5] text-[#222222]'
                       }`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900 text-base">
+                        <span className="font-extrabold text-[#222222] text-base">
                           {item.label}
                         </span>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center">
-                            <Check className="w-3.5 h-3.5" />
+                          <div className="w-5 h-5 rounded-full bg-[#0cefd3] text-[#222222] flex items-center justify-center">
+                            <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 leading-snug">
+                      <p className="text-xs text-[#6c6d6f] mt-1 leading-snug">
                         {item.description}
                       </p>
                     </div>
@@ -500,11 +500,11 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
         )}
 
         {/* Wizard Footer Controls */}
-        <div className="flex items-center justify-between pt-8 mt-8 border-t border-slate-100 gap-4">
+        <div className="flex items-center justify-between pt-8 mt-8 border-t border-gray-100 gap-4">
           <button
             type="button"
             onClick={handleBack}
-            className="px-5 py-3 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-semibold text-sm transition-colors flex items-center gap-2 cursor-pointer"
+            className="px-5 py-3 rounded-xl bg-[#f3f4f5] hover:bg-[#e7e8ea] text-[#232324] font-bold text-sm transition-colors flex items-center gap-2 cursor-pointer border border-transparent"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{currentStep === 1 ? '처음으로' : '이전 단계'}</span>
@@ -513,11 +513,11 @@ export const TravelSurvey: React.FC<TravelSurveyProps> = ({
           <button
             type="button"
             onClick={handleNext}
-            className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-bold text-sm sm:text-base shadow-md shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all flex items-center gap-2 cursor-pointer group"
+            className="px-7 py-3.5 rounded-xl bg-[#0cefd3] hover:bg-[#0bdac0] text-[#222222] font-black text-sm sm:text-base shadow-md shadow-[#0cefd3]/30 hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group"
           >
             {currentStep === 4 ? (
               <>
-                <Sparkles className="w-4 h-4" />
+                <Sparkles className="w-4 h-4 text-[#222222]" />
                 <span>맞춤 여행지 추천받기</span>
               </>
             ) : (

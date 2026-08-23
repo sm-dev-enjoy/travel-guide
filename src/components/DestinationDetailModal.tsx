@@ -87,7 +87,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
             alt={dest.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
           {/* Top Actions: Bookmark & Close button */}
           <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -121,16 +121,16 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
           {/* Destination Header Texts */}
           <div className="absolute bottom-4 left-5 right-5 text-white">
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="bg-sky-500 text-white text-xs font-bold px-2.5 py-0.5 rounded-full shadow-xs">
+              <span className="bg-[#0cefd3] text-[#222222] text-xs font-black px-2.5 py-0.5 rounded-full shadow-xs">
                 매칭 일치도 {matchPercentage}%
               </span>
               {dest.badge && (
-                <span className="bg-amber-400/90 text-slate-950 text-xs font-bold px-2.5 py-0.5 rounded-full">
+                <span className="bg-[#0cefd3] text-[#222222] text-xs font-black px-2.5 py-0.5 rounded-full">
                   {dest.badge}
                 </span>
               )}
-              <span className="text-xs text-white/80 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5" />
+              <span className="text-xs text-white/90 flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-[#0cefd3]" />
                 {dest.country} · {dest.region}
               </span>
             </div>
@@ -145,22 +145,22 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-slate-700">
+        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-[#222222]">
           {/* Why Recommended Highlight Box */}
-          <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200/70 space-y-2">
-            <div className="flex items-center gap-2 text-sky-900 font-bold text-sm">
-              <Sparkles className="w-4 h-4 text-sky-600" />
+          <div className="p-4 rounded-2xl bg-[#f3f4f5] border border-gray-200/80 space-y-2">
+            <div className="flex items-center gap-2 text-[#008e7d] font-bold text-sm">
+              <Sparkles className="w-4 h-4 text-[#00a894]" />
               <span>AI 맞춤 추천 사유</span>
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm text-[#222222] leading-relaxed">
               {tailoredReason}
             </p>
 
             {matchHighlights.length > 0 && (
-              <div className="pt-2 border-t border-sky-200/50 space-y-1">
+              <div className="pt-2 border-t border-gray-200/60 space-y-1">
                 {matchHighlights.map((hl, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-xs text-sky-800">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                  <div key={i} className="flex items-center gap-1.5 text-xs text-[#222222]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00bda7] shrink-0" />
                     <span>{hl}</span>
                   </div>
                 ))}
@@ -170,32 +170,32 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
 
           {/* Quick Specs Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <div className="bg-slate-50 border border-slate-200/60 p-3 rounded-xl">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
-                <Wallet className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="bg-[#f3f4f5] border border-gray-200/50 p-3 rounded-xl">
+              <div className="flex items-center gap-1.5 text-xs text-[#6c6d6f] font-medium mb-1">
+                <Wallet className="w-3.5 h-3.5 text-[#00bda7]" />
                 <span>1인 예상 경비</span>
               </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-sm font-extrabold text-[#222222] leading-tight">
                 {dest.estimatedCostPerPerson}
               </p>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200/60 p-3 rounded-xl">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
-                <Clock className="w-3.5 h-3.5 text-sky-600" />
+            <div className="bg-[#f3f4f5] border border-gray-200/50 p-3 rounded-xl">
+              <div className="flex items-center gap-1.5 text-xs text-[#6c6d6f] font-medium mb-1">
+                <Clock className="w-3.5 h-3.5 text-[#00bda7]" />
                 <span>이동 & 소요 시간</span>
               </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-sm font-extrabold text-[#222222] leading-tight">
                 {dest.flightTimeOrDistance}
               </p>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200/60 p-3 rounded-xl col-span-2 sm:col-span-1">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
-                <Calendar className="w-3.5 h-3.5 text-amber-600" />
+            <div className="bg-[#f3f4f5] border border-gray-200/50 p-3 rounded-xl col-span-2 sm:col-span-1">
+              <div className="flex items-center gap-1.5 text-xs text-[#6c6d6f] font-medium mb-1">
+                <Calendar className="w-3.5 h-3.5 text-[#00bda7]" />
                 <span>추천 여행 시기</span>
               </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-sm font-extrabold text-[#222222] leading-tight">
                 {dest.bestSeason}
               </p>
             </div>
@@ -203,8 +203,8 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
 
           {/* Section 1: Sample Itinerary */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-indigo-600" />
+            <h3 className="text-base font-extrabold text-[#222222] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#00a894]" />
               추천 일자별 핵심 코스
             </h3>
 
@@ -212,13 +212,13 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
               {dest.sampleItinerary.map((plan) => (
                 <div
                   key={plan.day}
-                  className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2"
+                  className="bg-[#f3f4f5] border border-gray-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center shrink-0">
+                    <span className="w-6 h-6 rounded-lg bg-[#0cefd3]/25 text-[#008e7d] text-xs font-black flex items-center justify-center shrink-0">
                       D{plan.day}
                     </span>
-                    <span className="font-bold text-sm text-slate-900">
+                    <span className="font-extrabold text-sm text-[#222222]">
                       {plan.title}
                     </span>
                   </div>
@@ -226,7 +226,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
                     {plan.places.map((place, idx) => (
                       <span
                         key={idx}
-                        className="text-xs bg-white text-slate-600 border border-slate-200 px-2.5 py-1 rounded-md"
+                        className="text-xs bg-white text-[#222222] border border-gray-200 px-2.5 py-1 rounded-md font-medium"
                       >
                         {place}
                       </span>
@@ -239,7 +239,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
 
           {/* Section 2: Must Eat Foods */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="text-base font-extrabold text-[#222222] flex items-center gap-2">
               <Utensils className="w-4 h-4 text-rose-500" />
               현지 필수 미식 & 맛집 추천
             </h3>
@@ -247,9 +247,9 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
               {dest.mustEat.map((food, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 p-2.5 rounded-xl bg-rose-50/60 border border-rose-100 text-xs font-medium text-slate-800"
+                  className="flex items-center gap-2 p-2.5 rounded-xl bg-[#f3f4f5] border border-gray-200/60 text-xs font-bold text-[#222222]"
                 >
-                  <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#00bda7] shrink-0" />
                   <span>{food}</span>
                 </div>
               ))}
@@ -258,7 +258,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
 
           {/* Section 3: Travel Tips */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="text-base font-extrabold text-[#222222] flex items-center gap-2">
               <Lightbulb className="w-4 h-4 text-amber-500" />
               여행 꿀팁 & 준비사항
             </h3>
@@ -266,9 +266,9 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
               {dest.travelTips.map((tip, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-amber-50/50 border border-amber-200/60 text-xs text-amber-900 leading-relaxed flex items-start gap-2"
+                  className="p-3 rounded-xl bg-[#f3f4f5] border border-gray-200/60 text-xs text-[#222222] leading-relaxed flex items-start gap-2"
                 >
-                  <span className="font-bold text-amber-600 shrink-0">Tip {idx + 1}.</span>
+                  <span className="font-extrabold text-[#008e7d] shrink-0">Tip {idx + 1}.</span>
                   <span>{tip}</span>
                 </div>
               ))}
@@ -277,7 +277,7 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between gap-3">
+        <div className="p-4 sm:p-5 bg-[#f3f4f5] border-t border-gray-200/80 flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => toggleBookmark(dest.id)}
@@ -285,16 +285,16 @@ export const DestinationDetailModal: React.FC<DestinationDetailModalProps> = ({
             className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer border ${
               isFav
                 ? 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100 shadow-xs'
-                : 'bg-white border-slate-200/80 text-slate-700 hover:bg-slate-100 hover:text-rose-600'
+                : 'bg-white border-gray-300 text-[#222222] hover:bg-[#e7e8ea]'
             }`}
           >
-            <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-slate-400'}`} />
+            <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : 'text-[#6c6d6f]'}`} />
             <span>{isFav ? '찜 완료 (위시리스트)' : '위시리스트 찜하기'}</span>
           </button>
 
           <button
             onClick={onClose}
-            className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold transition-colors cursor-pointer"
+            className="px-6 py-2.5 rounded-xl bg-[#232324] hover:bg-[#000000] text-white text-sm font-bold transition-colors cursor-pointer"
           >
             확인 및 닫기
           </button>

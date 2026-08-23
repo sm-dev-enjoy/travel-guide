@@ -3,12 +3,18 @@
 @layer base {
   :root {
     --font-sans: -apple-system, BlinkMacSystemFont, "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --color-panel: #f6f6f6;
+    --color-canvas: #ffffff;
+    --color-foreground: #222222;
+    --color-accent: #0cefd3;
+    --color-surface: #f3f4f5;
+    --color-muted: #6c6d6f;
   }
 
   body {
     font-family: var(--font-sans);
-    background-color: #f8fafc;
-    color: #0f172a;
+    background-color: #f6f6f6;
+    color: #222222;
     -webkit-font-smoothing: antialiased;
   }
 }

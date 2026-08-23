@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col antialiased text-slate-800 bg-slate-50 selection:bg-sky-500 selection:text-white">
+      <body className="min-h-full flex flex-col antialiased text-[#222222] bg-[#f6f6f6] selection:bg-[#0cefd3] selection:text-[#222222]">
         <BookmarkProvider>
           {children}
         </BookmarkProvider>
